@@ -3,6 +3,7 @@
 #include<stdlib.h>
 #include<sys/time.h>
 #define size 800
+int N=size;
 
 int main(int argc,char* argv[])
 {
@@ -13,27 +14,14 @@ int main(int argc,char* argv[])
 	 int A[size][size];
 	 int B[size][size];
 	 int i=0,j=0,k=0;
-	 FILE *file_ptr; //Reading the matrix values from TXT file
-	 char ch;
-	 file_ptr = fopen("myfile.txt", "r");
-	
-	 if (NULL == file_ptr) {
-		 printf("file can't be opened \n");
-		 return EXIT_FAILURE;
-	 }
-	
-	 while ((ch = fgetc(file_ptr)) != EOF) {
-		 int t = ch - '0';
-		 if(j==size){
-			 j=0;
-			 i++;
-		 }
-		 A[i][j] = t;
-		 B[i][j] = t;
-		 j++;
-	 }
 
-	 fclose(file_ptr);
+
+	 for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                A[i][j] = i * N + j + 1;  // Initialize A
+                B[i][j] = (i + j) % N + 1;  // Initialize B
+            }
+        }
 	 int C[size][size];
 	 clock_t t;
 	 int nthreads,tid;
@@ -48,7 +36,7 @@ int main(int argc,char* argv[])
 			 }
 		 }
 	 } //End of parallel threads
-	 
+
 	 gettimeofday(&tv2, &tz);//Calculate the current time in the system
 	 elapsed = (double) (tv2.tv_sec-tv1.tv_sec) + (double) (tv2.tv_usec-tv1.tv_usec) * 1.e-6;
 	 printf("elapsed time = %f seconds.\n", elapsed);
