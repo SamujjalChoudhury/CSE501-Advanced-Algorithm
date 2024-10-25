@@ -33,10 +33,6 @@ int main(int argc, char** argv) {
                 B[i][j] = (i + j) % N + 1;  // Initialize B
             }
         }
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-            }
-        }
     }
     MPI_Bcast(B, N * N, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Scatter(A, N, MPI_INT, local_A, N, MPI_INT, 0, MPI_COMM_WORLD);
